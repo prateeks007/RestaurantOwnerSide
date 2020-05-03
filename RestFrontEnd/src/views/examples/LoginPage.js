@@ -44,7 +44,7 @@ class LoginPage extends Component {
         console.log(values);
 
         axios
-            .post("http://localhost:3000/user/login", values)
+            .post(" https://restaurantownerbackend.herokuapp.com/user/login", values)
             .then((res) => {
                 console.log(res);
                 localStorage.setItem("Token", res.data.token);
