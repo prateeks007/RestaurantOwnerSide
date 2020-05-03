@@ -28,7 +28,8 @@ const userSchema = mongoose.Schema({
     },
     restNumber: {
         type: Number
-    }
+    },
+    restStatus: { type: Boolean, require: true }
 
 });
 module.exports = mongoose.model('User', userSchema);

@@ -25,6 +25,10 @@ import MenuView from "./MenuView.js";
 import StarRatings from 'react-star-ratings';
 class ProfilePage extends Component {
 
+
+  componentDidMount() {
+
+  }
   constructor() {
     super();
     this.state = {

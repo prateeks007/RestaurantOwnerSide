@@ -9,17 +9,21 @@ const Rest = require("../models/restSchema");
 
 router.get('/', checkAuth, (req, res, next) => {
     Rest.find()
-        .select()
+        .select("user rating wallet restStatus")
         .exec()
         .then(docs => {
             const response = {
                 length: docs.length,
                 data: docs.map(doc => {
                     return {
-                        _id: doc._id,
+                        info_id: doc.info_id,
+                        user: doc.user,
+                        rating: doc.rating,
+                        wallet: doc.wallet,
+                        restStatus: doc.restSatus,
                         request: {
                             type: 'GET',
-                            url: 'http://localhost:3000/products/' + doc._id
+                            url: 'http://localhost:3000/products/' + doc.info_id
                         }
                     }
                 })
@@ -35,41 +39,14 @@ router.get('/', checkAuth, (req, res, next) => {
         });
 
 });
-router.get('/:productId', (req, res, next) => {
-    const id = req.params.productId;
-    Rest.findById(id)
-        // .select("className students") just pass string for the things u wants to select in get 
-        .exec()
-        .then(docs => {
-            console.log(docs);
-            if (docs) {
 
-                res.status(200).json({
-                    item: docs,
-                    request: {
-                        type: "GET",
-                        description: "FOR_ALL_ITEMS",
-                        url: "http://localhost:3000/products"
-
-                    }
-                });
-            }
-            else {
-                res.status(404).json({
-                    message: "PAGE NOT FOUND 404"
-                });
-            }
-        }).catch(err => {
-            console.log(err);
-            res.status(500).json({ error: err })
-        });
-
-});
 router.post('/', checkAuth, (req, res, next) => {
 
     const slots = new Rest({
         _id: new mongoose.Types.ObjectId(),
         user: req.body.userId,
+
+
     });
     slots
         .save()

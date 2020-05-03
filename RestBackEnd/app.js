@@ -6,7 +6,7 @@ const mongoose = require('mongoose');
 
 
 const productRoutes = require('./api/routes/products');
-
+const dishRoutes = require('./api/routes/dish');
 const userRoutes = require('./api/routes/user');
 //MongoDB Connection
 mongoose.connect('mongodb+srv://Frost:' + process.env.MONGO_ATLAS_PW + '@intershipcluster-9whtg.mongodb.net/test?retryWrites=true&w=majority'
@@ -33,7 +33,7 @@ app.use((req, res, next) => {
 
 //Routing
 app.use('/products', productRoutes);
-
+app.use('/dish', dishRoutes);
 app.use('/user', userRoutes);
 
 //Error handling
