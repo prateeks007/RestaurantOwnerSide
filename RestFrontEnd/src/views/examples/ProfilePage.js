@@ -16,72 +16,120 @@ import {
   Col
 } from "reactstrap";
 import Switch from "react-switch";
-// core components
+
+import { Link, Redirect } from "react-router-dom";
 import ExamplesNavbar from "components/Navbars/ExamplesNavbar.js";
 import ProfilePageHeader from "components/Headers/ProfilePageHeader.js";
 import DemoFooter from "components/Footers/DemoFooter.js";
+import Orders from "./Orders";
 import EditProfile from "./EditProfile.js";
-import MenuView from "./MenuView.js";
 import StarRatings from 'react-star-ratings';
+import Spinner from "./Spinner.js";
+import axios from "axios";
 class ProfilePage extends Component {
 
-
+  state = {
+    data: [],
+    checked: true,
+    rating: 4,
+    wallet: "499",
+    logout: false,
+    err: false,
+    spinner: true
+  };
   componentDidMount() {
+    this.setState({ spinner: true });
+    const values = {
+      "_id": localStorage.getItem('id')
+    }
+    axios
+      .post("https://restaurantownerbackend.herokuapp.com/user/getInfo", values)
+      .then((res) => {
+        console.log(res);
+        this.setState({ data: res.data, spinner: false });
+        console.log(this.state.data);
+
+      })
+      .catch((err) => {
+        this.setState({ err: true, spinner: false });
+
+      });
 
   }
-  constructor() {
-    super();
-    this.state = {
-      checked: true,
-      rating: 2,
-      wallet: null
-    };
-    this.handleChange = this.handleChange.bind(this);
-  }
-
-  handleChange(checked) {
+  handleChange = (checked) => {
     this.setState({ checked });
   }
   render() {
+    const { data } = this.state;
     return (
       <>
         <ExamplesNavbar />
         <ProfilePageHeader />
-        <div style={{
 
-          display: "grid",
-          backgroundColor: "black",
-          color: "white",
-          gridTemplateColumns: "repeat(auto-fit,auto)",
-          gridTemplateRows: "repeat(2,auto)"
-        }}>
-          <Container className="py-4" >
-            <h2>Resataurant Status</h2>
-            <label>
-              <Switch
-                onChange={this.handleChange}
-                checked={this.state.checked}
-                className="react-switch"
-              />
-            </label>
-            <p>Your Resataurant is <span>{this.state.checked ? 'on' : 'off'}</span>.</p>
-            <h2 className="py-5">Edit Profile</h2>
-            <EditProfile />
-            <h1>Recevied Ratings</h1>
-            <StarRatings
-              rating={this.state.rating}
-              starRatedColor="blue"
-              changeRating={this.changeRating}
-              numberOfStars={6}
-              name='rating'
+        <Container className="py-4 text-center" >
+          <hr>
+          </hr>
+
+          <h2 className="title  font-weight-bold">Restaurant Status</h2>
+
+          <label>
+            <Switch
+              onChange={this.handleChange}
+              checked={this.state.checked}
+              className="react-switch"
             />
+          </label>
 
-            <h2 className="py-5">Wallet :{this.state.wallet}</h2>
-            <Button className="my-5 btn btn-primary btn-sm" color="danger">
+          <p className="title font-weight-bold">Your Restaurant is <span>{this.state.checked ? 'on' : 'off'}</span>.</p>
+
+          <hr>
+          </hr>
+
+          <h2 className="title font-weight-bold ">Edit Profile</h2>
+          {
+            this.state.spinner ? <Spinner></Spinner> :
+              <div>
+                {
+                  data.map((info, index) => (
+                    <EditProfile key={index} restName={info.restName} address={info.address} id={info.id} city={info.city} email={info.email} state={info.state} zip={info.zip} restNumber={info.restNumber} />
+                  ))
+                }
+              </div>
+          }
+
+
+
+          <hr>
+          </hr>
+          <Orders></Orders>
+          <hr>
+          </hr>
+
+
+          <h2 className="title  font-weight-bold">Recevied Ratings</h2>
+          <StarRatings
+            rating={this.state.rating}
+            starRatedColor="orange"
+            changeRating={this.changeRating}
+            numberOfStars={5}
+            name='rating'
+          />
+          <hr>
+          </hr>
+
+          <h2 className="title  font-weight-bold">Wallet :{this.state.wallet}</h2>
+
+          <hr>
+          </hr>
+          {this.state.logout ? <Redirect to="/login"></Redirect> :
+            <Button className="my-5 btn btn-primary btn-sm" color="danger" onClick={() => {
+              localStorage.clear();
+              this.setState({ logout: true })
+            }}>
               Log Out
-                  </Button>
-          </Container>
-        </div>
+                  </Button>}
+        </Container>
+
 
         <DemoFooter />
       </>

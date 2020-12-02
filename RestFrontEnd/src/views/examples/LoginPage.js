@@ -2,12 +2,11 @@
 import React, { Component } from "react";
 
 // reactstrap components
-import { Button, Card, Form, Input, Container, Row, Col } from "reactstrap";
-
-// core components
+import { Button, Card, Form, Input, Container, Row, Col, Alert } from "reactstrap";
+import Spinner from "./Spinner.js";
 import IndexNavbar from "components/Navbars/IndexNavbar.js";
 import axios from "axios";
-import { Link, Redirect } from "react-router-dom";
+import { Redirect } from "react-router-dom";
 class LoginPage extends Component {
     state = {
         email: "",
@@ -17,16 +16,12 @@ class LoginPage extends Component {
         loading: true,
         rememberMe: false,
         redirect: "",
+        err: false,
+        spinner: false
     };
     componentDidMount() {
         document.body.classList.add("register-page");
-
-        if (localStorage.getItem("RememberMe") == "false") {
-            this.setState({ redirect: localStorage.getItem("Token") });
-        }
-        else {
-            localStorage.clear("Token");
-        }
+        localStorage.clear("Token");
     }
     componentWillUnmount() {
         document.body.classList.remove("register-page");
@@ -36,7 +31,7 @@ class LoginPage extends Component {
     };
     submitHandler = (e) => {
         e.preventDefault();
-
+        this.setState({ spinner: true });
         const values = {
             email: this.state.email,
             password: this.state.password,
@@ -48,10 +43,13 @@ class LoginPage extends Component {
             .then((res) => {
                 console.log(res);
                 localStorage.setItem("Token", res.data.token);
-                this.setState({ loading: false });
+                localStorage.setItem("id", res.data.id);
+                localStorage.setItem("email", res.data.email);
+                this.setState({ loading: false, spinner: false });
             })
             .catch((err) => {
-                console.log(err);
+                this.setState({ err: true, spinner: false });
+
             });
     }
     render() {
@@ -75,15 +73,24 @@ class LoginPage extends Component {
                                         <Col className="ml-auto mr-auto" lg="4">
                                             <Card className="card-register ml-auto mr-auto">
                                                 <h3 className="title mx-auto">Welcome back! <br></br>to SnackTime</h3>
+                                                {this.state.err ? (
+                                                    <Alert color="danger" >Useremail and Password combination is wrong</Alert>
+                                                ) : <p></p>}
+
                                                 <Form className="register-form"
                                                     onSubmit={this.submitHandler.bind(this)}>
                                                     <label>Email</label>
-                                                    <Input placeholder="Email" name="email"
+                                                    <Input placeholder="Email"
+                                                        name="email"
                                                         type="email"
                                                         value={email}
                                                         onChange={this.updateField} />
                                                     <label>Password</label>
-                                                    <Input placeholder="Password" name="password" type="password" value={password} onChange={this.updateField} />
+                                                    <Input placeholder="Password"
+                                                        name="password"
+                                                        type="password"
+                                                        value={password}
+                                                        onChange={this.updateField} />
                                                     <div className="custom-control custom-control-alternative custom-checkbox">
                                                         <input
                                                             className="custom-control-input"
@@ -109,9 +116,15 @@ class LoginPage extends Component {
                                                     ) : (
                                                             <Redirect to="dashboard"></Redirect>
                                                         )}
-                                                    <Button block className="btn-round" color="danger">
+                                                    {
+                                                        this.state.spinner ?
+                                                            <Spinner></Spinner>
+                                                            : <p></p>
+                                                    }
+
+                                                    <Button block className="btn-round" color="danger" onClick={this.submitHandler.bind(this)}>
                                                         Login
-                  </Button>
+                                                    </Button>
                                                 </Form>
                                                 <div className="forgot">
                                                     <Button
@@ -133,13 +146,14 @@ class LoginPage extends Component {
                                 <div className="footer register-footer text-center">
                                     <h6>
                                         © {new Date().getFullYear()}, made with{" "}
-                                        <i className="fa fa-heart heart" /> Yash and Malhar
+                                        <i className="fa fa-heart heart" /> Notion Infosoft
           </h6>
                                 </div>
                             </div>
                         </>
 
-                    )}
+                    )
+                }
             </>
         )
             ;
@@ -148,29 +162,3 @@ class LoginPage extends Component {
 
 export default LoginPage;
 
-{/* <div className="social-line text-center">
-    <Button
-        className="btn-neutral btn-just-icon mr-1"
-        color="facebook"
-        href="#pablo"
-        onClick={e => e.preventDefault()}
-    >
-        <i className="fa fa-facebook-square" />
-    </Button>
-    <Button
-        className="btn-neutral btn-just-icon mr-1"
-        color="google"
-        href="#pablo"
-        onClick={e => e.preventDefault()}
-    >
-        <i className="fa fa-google-plus" />
-    </Button>
-    <Button
-        className="btn-neutral btn-just-icon"
-        color="twitter"
-        href="#pablo"
-        onClick={e => e.preventDefault()}
-    >
-        <i className="fa fa-twitter" />
-    </Button>
-</div>*/}

@@ -12,6 +12,8 @@ import Login from "views/examples/LoginPage.js";
 import LandingPage from "views/examples/LandingPage.js";
 import ProfilePage from "views/examples/ProfilePage.js";
 import RegisterPage from "views/examples/RegisterPage.js";
+import AddDish from "views/examples/AddDish";
+
 // others
 
 ReactDOM.render(
@@ -33,6 +35,10 @@ ReactDOM.render(
       <Route
         path="/register"
         render={props => <RegisterPage {...props} />}
+      />
+      <Route
+        path="/adddish"
+        render={props => <AddDish {...props} />}
       />
     </Switch>
   </BrowserRouter>,

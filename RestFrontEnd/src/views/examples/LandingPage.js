@@ -1,7 +1,6 @@
 
 import React from "react";
 
-// reactstrap components
 import {
   Button,
   Card,
@@ -15,7 +14,8 @@ import {
   InputGroup,
   Container,
   Row,
-  Col
+  Col,
+  UncontrolledCollapse
 } from "reactstrap";
 
 // core components
@@ -27,6 +27,7 @@ function LandingPage() {
   document.documentElement.classList.remove("nav-open");
   React.useEffect(() => {
     document.body.classList.add("profile-page");
+
     return function cleanup() {
       document.body.classList.remove("profile-page");
     };
@@ -40,23 +41,32 @@ function LandingPage() {
           <Container>
             <Row>
               <Col className="ml-auto mr-auto" md="8">
-                <h2 className="title">Let's talk product</h2>
-                <h5 className="description">
-                  This is the paragraph where you can write more details about
-                  your product. Keep you user engaged by providing meaningful
-                  information. Remember that by this time, the user is curious,
-                  otherwise he wouldn't scroll to get here. Add a button if you
-                  want the user to see more.
-                </h5>
+                <h2 className="title font-weight-bold">Why everyone loves our meal?</h2>
+
+                <h5 className="description">Eu elit consequat dolor nostrud nisi dolore aliqua adipisicing dolor consectetur. Eiusmod qui veniam id occaecat velit mollit sint dolor. Ullamco sint cupidatat voluptate dolor est non. Nulla do aute aliquip ex qui aliqua adipisicing esse sunt dolor ex sit. Esse excepteur adipisicing sit dolore.
+Laborum in officia velit do laboris dolor. Dolore elit officia ex consectetur do voluptate in sit. Nulla culpa ex ullamco ad reprehenderit. Dolor occaecat aliquip aliqua id ut nisi amet deserunt nisi cupidatat ut fugiat enim ipsum.</h5>
                 <br />
                 <Button
                   className="btn-round"
-                  color="info"
-                  href="#pablo"
-                  onClick={e => e.preventDefault()}
+                  color="secondary"
+                  id="toggler"
                 >
                   See Details
                 </Button>
+                <UncontrolledCollapse toggler="#toggler">
+                  <Card body inverse style={{ backgroundColor: '#333', marginTop: "30px", borderColor: '#333' }}>
+                    <CardBody>
+                      Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
+                      similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
+                      dignissimos esse fuga! Minus, alias.
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
+                          similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
+                          dignissimos esse fuga! Minus, alias.
+                        </CardBody>
+                  </Card>
+
+                </UncontrolledCollapse>
+
               </Col>
             </Row>
             <br />
@@ -65,68 +75,109 @@ function LandingPage() {
               <Col md="3">
                 <div className="info">
                   <div className="icon icon-info">
-                    <i className="nc-icon nc-album-2" />
+                    <img src={require("assets/img/convenience.png")} />
                   </div>
                   <div className="description">
-                    <h4 className="info-title">Beautiful Gallery</h4>
+                    <h4 className="info-title">Convenient</h4>
                     <p className="description">
-                      Spend your time generating new ideas. You don't have to
-                      think of implementing.
+                    We do the shopping, the cooking, we make it delicious and we make it healthy. And to make things even better, we deliver right to your doorstep three times per week.
                     </p>
-                    <Button className="btn-link" color="info" href="#pablo">
+                    <Button className="btn-link" color="secondary" id="toggler1">
                       See more
                     </Button>
+                    <UncontrolledCollapse toggler="#toggler1">
+                      <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+                        <CardBody>
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
+                          similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
+                          dignissimos esse fuga! Minus, alias.
+                          
+                        </CardBody>
+                      </Card>
+
+                    </UncontrolledCollapse>
+                 
                   </div>
                 </div>
               </Col>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
-                    <i className="nc-icon nc-bulb-63" />
+                  <div className="icon ">
+                  <img src={require("assets/img/meal.png")} />
                   </div>
                   <div className="description">
-                    <h4 className="info-title">New Ideas</h4>
+                    <h4 className="info-title">Fresh meal plan delivery</h4>
                     <p>
-                      Larger, yet dramatically thinner. More powerful, but
-                      remarkably power efficient.
+                    We deliver our meals immediately after cooking to ensure you receive the freshest meal possible. And we do so three times a week!
                     </p>
-                    <Button className="btn-link" color="info" href="#pablo">
+                    <Button className="btn-link" color="secondary" id="toggler2">
                       See more
                     </Button>
+                    <UncontrolledCollapse toggler="#toggler2">
+                      <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+                        <CardBody>
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
+                          similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
+                          dignissimos esse fuga! Minus, alias.
+                          
+                        </CardBody>
+                      </Card>
+
+                    </UncontrolledCollapse>
+                 
                   </div>
                 </div>
               </Col>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
-                    <i className="nc-icon nc-chart-bar-32" />
+                  <div className="icon ">
+                  <img src={require("assets/img/oven.png")} />
                   </div>
                   <div className="description">
-                    <h4 className="info-title">Statistics</h4>
+                    <h4 className="info-title">Microwaveable containers</h4>
                     <p>
-                      Choose from a veriety of many colors resembling sugar
-                      paper pastels.
+                    All meals are served in microwave-safe BPA-free containers. Simply heat your meals 2 to 3 minutes and enjoy!
                     </p>
-                    <Button className="btn-link" color="info" href="#pablo">
+                    <Button className="btn-link" id="toggler3" color="secondary" >
                       See more
                     </Button>
+                    <UncontrolledCollapse toggler="#toggler3">
+                      <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+                        <CardBody>
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
+                          similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
+                          dignissimos esse fuga! Minus, alias.
+                        </CardBody>
+                      </Card>
+
+                    </UncontrolledCollapse>
+
                   </div>
                 </div>
               </Col>
               <Col md="3">
                 <div className="info">
-                  <div className="icon icon-info">
-                    <i className="nc-icon nc-sun-fog-29" />
+                  <div className="icon">
+                  <img src={require("assets/img/chef.png")} />
                   </div>
                   <div className="description">
-                    <h4 className="info-title">Delightful design</h4>
+                    <h4 className="info-title">5 Star Chef</h4>
                     <p>
-                      Find unique and handmade delightful designs related items
-                      directly from our sellers.
+                    Enjoy fresh delivered meals specially crafted by our 5-star chefs with over 30 years of experience. Our meal plans change every week and every month, so say goodbye to your boring old meal plan!
                     </p>
-                    <Button className="btn-link" color="info" href="#pablo">
+                    <Button className="btn-link" id="toggler4" color="secondary">
                       See more
                     </Button>
+                    <UncontrolledCollapse toggler="#toggler4">
+                      <Card body inverse style={{ backgroundColor: '#333', borderColor: '#333' }}>
+                        <CardBody>
+                          Lorem ipsum dolor sit amet consectetur adipisicing elit. Nesciunt magni, voluptas debitis
+                          similique porro a molestias consequuntur earum odio officiis natus, amet hic, iste sed
+                          dignissimos esse fuga! Minus, alias.
+                        </CardBody>
+                      </Card>
+
+                    </UncontrolledCollapse>
                   </div>
                 </div>
               </Col>
@@ -143,22 +194,19 @@ function LandingPage() {
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
-                        src={require("assets/img/faces/clem-onojeghuo-3.jpg")}
+                        src={require("assets/img/download1.jpg")}
                       />
                     </a>
                   </div>
                   <CardBody>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <div className="author">
-                        <CardTitle tag="h4">Henry Ford</CardTitle>
-                        <h6 className="card-category">Product Manager</h6>
+                        <CardTitle tag="h4">Our Stores</CardTitle>
+                        <h6 className="card-category"></h6>
                       </div>
                     </a>
                     <p className="card-description text-center">
-                      Teamwork is so important that it is virtually impossible
-                      for you to reach the heights of your capabilities or make
-                      the money that you want without becoming very good at it.
-                    </p>
+                      Voluptate ut irure et amet occaecat sunt reprehenderit ex amet aute laborum nulla.</p>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
@@ -194,23 +242,19 @@ function LandingPage() {
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
-                        src={require("assets/img/faces/joe-gardner-2.jpg")}
+                        src={require("assets/img/download2.jpg")}
                       />
                     </a>
                   </div>
                   <CardBody>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <div className="author">
-                        <CardTitle tag="h4">Sophie West</CardTitle>
-                        <h6 className="card-category">Designer</h6>
+                        <CardTitle tag="h4">Fast Delivery</CardTitle>
+                        <h6 className="card-category"></h6>
                       </div>
                     </a>
                     <p className="card-description text-center">
-                      A group becomes a team when each member is sure enough of
-                      himself and his contribution to praise the skill of the
-                      others. No one can whistle a symphony. It takes an
-                      orchestra to play it.
-                    </p>
+                      Ad voluptate aliqua nulla ea enim id anim aliqua adipisicing pariatur eu culpa consequat.</p>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
@@ -246,23 +290,18 @@ function LandingPage() {
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <img
                         alt="..."
-                        src={require("assets/img/faces/erik-lucatero-2.jpg")}
+                        src={require("assets/img/download3.jpg")}
                       />
                     </a>
                   </div>
                   <CardBody>
                     <a href="#pablo" onClick={e => e.preventDefault()}>
                       <div className="author">
-                        <CardTitle tag="h4">Robert Orben</CardTitle>
-                        <h6 className="card-category">Developer</h6>
+                        <CardTitle tag="h4">Top Service</CardTitle>
                       </div>
                     </a>
                     <p className="card-description text-center">
-                      The strength of the team is each individual member. The
-                      strength of each member is the team. If you can laugh
-                      together, you can work together, silence isn’t golden,
-                      it’s deadly.
-                    </p>
+                      Irure officia irure ex enim veniam mollit aliqua nulla non ut ipsum nulla ea.</p>
                   </CardBody>
                   <CardFooter className="text-center">
                     <Button
@@ -327,7 +366,7 @@ function LandingPage() {
                   </Row>
                   <label>Message</label>
                   <Input
-                    placeholder="Tell us your thoughts and feelings..."
+                    placeholder="Tell us your thoughts and feelings...  Work in progress"
                     type="textarea"
                     rows="4"
                   />

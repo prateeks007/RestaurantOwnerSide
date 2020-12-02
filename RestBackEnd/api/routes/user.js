@@ -4,8 +4,26 @@ const mongoose = require('mongoose');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const checkAuth = require('../auth/check-auth');
-
 const User = require("../models/userSchema");
+router.post('/getInfo', (req, res, next) => {
+    User.find({ _id: req.body._id })
+        .select("email restName address city state zip restNumber")
+        .then(result => {
+            if (result < 1) {
+                return res.status(401).json({
+                    message: "No user found Sorry"
+                })
+            }
+            console.log(result);
+            res.status(200).json(result);
+
+        }).catch(err => {
+            console.log(err); res.status(500).json({
+                error: err
+            });
+        });
+
+})
 router.post('/restsignup', (req, res, next) => {
     User.find({ email: req.body.email })
         .exec()
@@ -145,7 +163,9 @@ router.post('/login', (req, res, next) => {
                         );
                         return res.status(200).json({
                             message: "successfully login",
-                            token: token
+                            token: token,
+                            email: req.body.email,
+                            id: user[0]._id
                         })
                     }
                     res.status(401).json({

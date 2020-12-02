@@ -54,7 +54,7 @@ function IndexNavbar() {
           <NavbarBrand to="/" tag={Link}
 
           >
-            Snack Time
+            Rapido Delivery
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}

@@ -1,10 +1,7 @@
 import React from "react";
-
-// reactstrap components
 import { Button, Container } from "reactstrap";
 
-// core components
-
+import { Link } from "react-router-dom";
 function LandingPageHeader() {
   let pageHeader = React.createRef();
 
@@ -35,23 +32,26 @@ function LandingPageHeader() {
         <div className="filter" />
         <Container>
           <div className="motto text-center">
-            <h1>Snack Time </h1>
+            <h1>Rapido Delivery </h1>
             <h3>Online Grocery & Food Store Order and Delivery</h3>
             <br />
-            <Button
-              href="https://www.youtube.com/watch?v=dQw4w9WgXcQ"
-              className="btn-round mr-1"
-              color="neutral"
+            <Link to="/login">
+              <Button
+                className="btn-round mr-1"
+                color="neutral"
 
-              outline
-            >
-              <i className="nc-icon nc-lock-circle-open" />
+                outline
+              >
+                <i className="nc-icon nc-lock-circle-open" />
               Login
             </Button>
-            <Button className="btn-round" color="neutral" type="button" outline>
-              <i className="nc-icon nc-single-02" />
+            </Link>
+            <Link to="/register">
+              <Button className="btn-round" color="neutral" type="button" outline>
+                <i className="nc-icon nc-single-02" />
               Register Now
             </Button>
+            </Link>
           </div>
         </Container>
       </div>

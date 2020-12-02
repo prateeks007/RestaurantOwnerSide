@@ -1,7 +1,6 @@
 
 import React from "react";
 import { Link } from "react-router-dom";
-// nodejs library that concatenates strings
 import classnames from "classnames";
 import {
   Collapse,
@@ -54,7 +53,7 @@ function ExamplesNavbar() {
           <NavbarBrand to="/" tag={Link}
 
           >
-            Snack Time
+            Rapido Delivery
           </NavbarBrand>
           <button
             aria-expanded={navbarCollapse}
@@ -89,8 +88,8 @@ function ExamplesNavbar() {
             <NavItem>
 
               <NavLink to="/" tag={Link}>
-                <i className="nc-icon nc-single-02" /> Logout
-             </NavLink>
+                <i className="nc-icon nc-single-02" onClick={() => { localStorage.clear() }} /> LOGOUT
+              </NavLink>
             </NavItem>
 
 

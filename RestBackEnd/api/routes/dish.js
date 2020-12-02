@@ -32,7 +32,7 @@ router.post('/addDish', (req, res, next) => {
 });
 router.post('/getDish', (req, res, next) => {
     Dish.find({ user_id: req.body.user_id })
-        .select("dish_name dish_expl dish_price")
+        .select("dish_name dish_id dish_expl dish_price")
         .exec()
         .then(result => {
             if (result < 1) {
@@ -51,6 +51,24 @@ router.post('/getDish', (req, res, next) => {
         });
 
 });
+router.delete('/deleteDish/:productId', (req, res, next) => {
+    const id = req.params.productId;
+    Dish.remove({ dish_id: id })
+        .exec()
+        .then(result => {
+            res.status(200).json({
+                message: "Dish deleted successfully",
+                dish_detail: result
+            });
+        })
+        .catch(err => {
+            res.status(500).json({
+                error: err
+            });
+        });
+});
+
+
 
 
 module.exports = router;
